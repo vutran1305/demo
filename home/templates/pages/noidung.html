@@ -1,0 +1,28 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+<center><h3>{% if next and pre == None %}
+<a href="{% url 'noidung' next %}">next</a>
+{% endif %}
+{% if next == None and pre %}
+<a href="{% url 'noidung' pre %}">pre</a>
+{% endif %}
+{% if next  and pre  %}
+<a href="{% url 'noidung' next %}">next</a><br/>
+<a href="{% url 'noidung' pre %}">pre</a><br/>
+    {% endif %}</h3></center>
+<select onchange="location = this.value;" >
+    {% for i in book.chapter_set.all %}
+        {% if i.id == chap.id %}
+        <option selected = "selected" value= "{% url 'noidung' i.id %} ">{{ i.title }}</option>
+        {% else %}
+       <option value= "{% url 'noidung' i.id %} ">{{ i.title }}</option>
+    {% endif %}
+    {% endfor %}
+</select>
+<h1 style="text-align: center"> {{title}} </h1>
+<div style="margin-left:100px;margin-right:100px;margin-top:50px">{{ noidung | safe |linebreaks }} </div>
+<div style="margin-left:100px;margin-right:100px;margin-top:50px,color:red">{{ chap.readline | safe   }} </div>
+
+
+{% endblock content %}

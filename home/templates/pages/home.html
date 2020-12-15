@@ -1,0 +1,26 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+<div>
+    {% if user.username %}
+    <p> Xin chào <b>{{ user.username}}</b><span style="margin-left:10px"> <a href= "{% url 'dangxuat' %}"> Đăng xuất</a></span> </p>
+
+    {% else %}
+    <p><a href="{% url 'dangnhap' %}">Đăng nhập</a>  <span style="margin-left:10px"> <a href= "{% url 'dangky' %}"> Đăng ký</a></span> </p>
+
+    {% endif %}
+</div>
+<h3>Danh sách truyện và sách</h3>
+{% for i in book%}
+<p></p><a href="{% url 'sach' i.id %}" style="decoration:none">{{i.BookName}}</a></p>
+{% endfor %}
+
+<h3>Danh sách thể loại </h3>
+{% for i in cate %}
+<p></p><a href="{% url 'theloai' i.name %}" style="decoration:none">{{i.name}}</a></p>
+{% endfor %}
+
+<h3>Danh sách tác giả</h3>
+{% for i in author %}
+    <p></p><a href="{% url 'tacgia' i.Name %}" style="decoration:none">{{i.Name}}</a></p>
+{% endfor %}
+{% endblock content %}

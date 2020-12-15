@@ -1,0 +1,46 @@
+HTML
+{% extends 'pages/base.html' %}
+{% block content %}
+
+<h3>Danh sách thể loại thuộc danh mục {{ kieu }} </h3>
+{% for i in category %}
+<p><a href="{% url 'theloai' i.name %}" style="decoration:none">{{ i.name }}</a></p>
+{% endfor %}
+
+<h3>Danh sách {{ kieu }}</h3>
+{% for i in booktype %}
+<p><a href="{% url 'sach' i.id %}" style="decoration:none">{{ i.BookName }}</a></p>
+{% endfor %}
+
+{% endblock content %}
+
+VIEW
+def PhanLoai(request,type): # Phân loại sách và truyện
+    query = []
+    book = []
+    category = Category.objects.all()
+    for i in category:
+        if i.type != type:
+            query.append(i)
+            for j in i.book_set.all():
+                if j not in book:
+                    book.append(j)
+    if type == 1 or type == 2:
+        kieu = 'Sách'
+    if type == 0 or type == 2:
+        kieu = 'Truyện'
+    contex = {'category':query,'booktype':book,'kieu':kieu}
+    return render(request,'pages/type.html',contex)
+
+URLS
+
+path('type/<int:type>',views.PhanLoai,name = 'type'),
+
+MODEL
+class Category(models.Model):
+    type_choice = ((0,"Sách"),(1,"Truyện"),(2,"Cả hai"))
+    name = models.CharField(max_length=50)
+    type = models.IntegerField(choices=type_choice,default=2)
+    detail = models.CharField(max_length=200,null=True,blank=True)
+    def __str__(self):
+        return '%s %s' % (self.name , self.type)

@@ -1,0 +1,7 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+
+{% for i in book %}
+<p><a href="{% url 'sach' i.id %}" style="decoration:none">{{ i.BookName }}</a></p>
+{% endfor %}
+{% endblock content %}
