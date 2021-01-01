@@ -21,8 +21,8 @@ def main():
 if __name__ == '__main__':
     main()
 
-a = 0
-b = 0
+# a = 0
+# b = 0
 
 # #!/usr/bin/env python
 # """Django's command-line utility for administrative tasks."""
