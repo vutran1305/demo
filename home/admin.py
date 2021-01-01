@@ -9,10 +9,10 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 
-class ChapterInlines(admin.TabularInline):
-    model = Chapter
-    classes = ['collapse'] #collapse : Cuộn nội dung này
-    extra = 0
+# class ChapterInlines(admin.TabularInline):
+#     model = Chapter
+#     classes = ['collapse'] #collapse : Cuộn nội dung này
+#     extra = 0
 
 
 class BookAdmin(admin.ModelAdmin):
